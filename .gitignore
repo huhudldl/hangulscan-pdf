@@ -1,0 +1,12 @@
+# 빌드 결과물 (./build.sh 로 다시 만듦)
+.build/
+build/
+
+# macOS
+.DS_Store
+
+# Windows 버전 빌드 결과물
+windows/**/bin/
+windows/**/obj/
+windows/**/publish/
+*.user

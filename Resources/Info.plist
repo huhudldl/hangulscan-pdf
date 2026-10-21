@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleName</key><string>한글스캔 PDF</string>
+	<key>CFBundleDisplayName</key><string>한글스캔 PDF</string>
+	<key>CFBundleIdentifier</key><string>com.hangulscan.pdf</string>
+	<key>CFBundleExecutable</key><string>HangulScan</string>
+	<key>CFBundleIconFile</key><string>AppIcon</string>
+	<key>CFBundlePackageType</key><string>APPL</string>
+	<key>CFBundleShortVersionString</key><string>1.0</string>
+	<key>CFBundleVersion</key><string>1</string>
+	<key>CFBundleDevelopmentRegion</key><string>ko</string>
+	<key>LSMinimumSystemVersion</key><string>26.0</string>
+	<key>LSApplicationCategoryType</key><string>public.app-category.productivity</string>
+	<key>NSHighResolutionCapable</key><true/>
+	<key>NSCameraUsageDescription</key><string>문서를 카메라로 스캔하고 실시간으로 수평을 맞추기 위해 카메라를 사용합니다.</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key><string>PDF 문서</string>
+			<key>CFBundleTypeIconFile</key><string>AppIcon</string>
+			<key>CFBundleTypeRole</key><string>Editor</string>
+			<key>LSHandlerRank</key><string>Alternate</string>
+			<key>LSItemContentTypes</key><array><string>com.adobe.pdf</string></array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeName</key><string>이미지</string>
+			<key>CFBundleTypeRole</key><string>Viewer</string>
+			<key>LSHandlerRank</key><string>Alternate</string>
+			<key>LSItemContentTypes</key><array><string>public.image</string></array>
+		</dict>
+	</array>
+</dict>
+</plist>
