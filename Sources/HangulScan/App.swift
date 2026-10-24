@@ -1,5 +1,6 @@
 import SwiftUI
 import AppKit
+import UniformTypeIdentifiers
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillFinishLaunching(_ notification: Notification) {
@@ -69,6 +70,9 @@ struct AppCommands: Commands {
     }
 
     var body: some Commands {
+        CommandGroup(after: .appSettings) {
+            Button("PDF 기본 앱으로 설정…") { DefaultApp.makeDefaultForPDF() }
+        }
         CommandGroup(replacing: .newItem) {
             Button("새 탭") { WindowManager.shared.newTab(byUser: true) }.keyboardShortcut("t")
             Button("열기…") { model.openPanel() }.keyboardShortcut("o")
@@ -173,5 +177,35 @@ struct AppCommands: Commands {
             .disabled(model.document == nil)
             Button("서명 만들기…") { model.showSignaturePad = true }
         }
+    }
+}
+
+/// 이 앱을 PDF를 여는 기본 앱으로 지정 → Finder의 PDF 파일이 이 앱의 문서 아이콘으로 바뀜
+enum DefaultApp {
+    static var isDefaultForPDF: Bool {
+        NSWorkspace.shared.urlForApplication(toOpen: .pdf)?.standardizedFileURL == Bundle.main.bundleURL.standardizedFileURL
+    }
+
+    static func makeDefaultForPDF() {
+        if isDefaultForPDF {
+            info("이미 PDF 기본 앱입니다", "PDF 파일을 두 번 누르면 한글스캔 PDF로 열립니다.")
+            return
+        }
+        NSWorkspace.shared.setDefaultApplication(at: Bundle.main.bundleURL, toOpen: .pdf) { error in
+            DispatchQueue.main.async {
+                if let error {
+                    info("기본 앱으로 지정하지 못했습니다", error.localizedDescription)
+                } else {
+                    info("PDF 기본 앱으로 지정했습니다", "이제 PDF 파일을 두 번 누르면 한글스캔 PDF로 열리고, Finder의 PDF 아이콘도 바뀝니다. (아이콘은 잠시 뒤 바뀔 수 있습니다)")
+                }
+            }
+        }
+    }
+
+    private static func info(_ title: String, _ text: String) {
+        let a = NSAlert()
+        a.messageText = title
+        a.informativeText = text
+        a.runModal()
     }
 }

@@ -20,6 +20,13 @@ if [ ! -f build/AppIcon.icns ] || [ -n "$ICON_SRC" ] || [ scripts/make_icon.swif
   iconutil -c icns build/AppIcon.iconset -o build/AppIcon.icns
 fi
 cp build/AppIcon.icns "$APP/Contents/Resources/"
+# PDF 문서 아이콘 (이 앱이 PDF 기본 앱일 때 Finder의 PDF 파일 아이콘)
+if [ ! -f build/PDFDocument.icns ] || [ -n "$ICON_SRC" ] || [ scripts/make_doc_icon.swift -nt build/PDFDocument.icns ]; then
+  rm -rf build/PDFDocument.iconset && mkdir -p build/PDFDocument.iconset
+  swift scripts/make_doc_icon.swift build/PDFDocument.iconset ${ICON_SRC:+"$ICON_SRC"}
+  iconutil -c icns build/PDFDocument.iconset -o build/PDFDocument.icns
+fi
+cp build/PDFDocument.icns "$APP/Contents/Resources/"
 # 문서 폴더 등에서 붙는 확장 속성(Finder 정보 등)은 서명을 막으므로 제거
 xattr -cr "$APP"
 codesign --force --deep --sign - "$APP"
