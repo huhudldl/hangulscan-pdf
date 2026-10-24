@@ -83,3 +83,7 @@ Windows 버전 설계는 [docs/WINDOWS_PORT.md](docs/WINDOWS_PORT.md)에 정리�
 ".build/release/HangulScan" --selftest 책사진.jpg 결과.pdf --book
 ".build/release/HangulScan" --selftest 사진폴더/ 결과.pdf
 ```
+
+## 라이선스
+
+[MIT 라이선스](LICENSE) — 출처(저작권 표시)만 남기면 누구나 자유롭게 쓰고 고치고 배포할 수 있습니다.
